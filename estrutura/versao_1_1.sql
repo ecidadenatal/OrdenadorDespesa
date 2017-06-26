@@ -1,0 +1,1 @@
+alter table plugins.assinaturaordenadordespesa add column principal boolean default false;

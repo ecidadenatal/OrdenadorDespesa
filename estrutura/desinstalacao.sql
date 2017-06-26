@@ -1,0 +1,5 @@
+drop sequence assinaturaordenadordespesa_sequencial_seq;
+drop sequence documentoassinaturaordenadordespesa_sequencial_seq;
+
+drop table documentoassinaturaordenadordespesa;
+drop table assinaturaordenadordespesa;

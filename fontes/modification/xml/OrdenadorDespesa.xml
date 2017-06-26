@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<modification>
+  <id>OrdenadorDespesa</id>
+  <name>Assinatura Ordenador da Despesa</name>
+  <ecidade-version>2.3.36</ecidade-version>
+  <file path='fpdf151/impmodelos/mod_imprime6.php'>
+    <operation>
+      <search><![CDATA[/**[extensao ordenadordespesa] doc_usuario*/]]></search>
+      <add position="after">
+        <![CDATA[
+          $db02_texto = AssinaturaOrdenadorDespesa::getAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_EMISSAO_EMPENHO, $this->numemp, $db02_texto);
+          ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[/**[extensao ordenadordespesa] doc_padrao*/]]></search>
+      <add position="after">
+        <![CDATA[
+          $db61_texto = AssinaturaOrdenadorDespesa::getAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_EMISSAO_EMPENHO, $this->numemp, $db61_texto);
+          ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='fpdf151/impmodelos/mod_imprime7.php'>
+    <operation>
+      <search><![CDATA[/**[extensao ordenadordespesa] doc_usuario*/]]></search>
+      <add position="after">
+        <![CDATA[
+          $db02_texto = AssinaturaOrdenadorDespesa::getAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_ORDEM_PAGAMENTO, $this->ordpag, $db02_texto);
+          ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[/**[extensao ordenadordespesa] doc_padrao*/]]></search>
+      <add position="after">
+        <![CDATA[
+          $db61_texto = AssinaturaOrdenadorDespesa::getAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_ORDEM_PAGAMENTO, $this->ordpag, $db61_texto);
+          ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='fpdf151/impmodelos/mod_imprime12.php'>
+    <operation>
+      <search><![CDATA[/**[extensao ordenadordespesa] doc_usuario*/]]></search>
+      <add position="after">
+        <![CDATA[
+          $db02_texto = AssinaturaOrdenadorDespesa::getAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_ANULACAO_EMPENHO, $this->notaanulacao, $db02_texto);
+          ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[/**[extensao ordenadordespesa] doc_padrao*/]]></search>
+      <add position="after">
+        <![CDATA[
+          $db61_texto = AssinaturaOrdenadorDespesa::getAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_ANULACAO_EMPENHO, $this->notaanulacao, $db61_texto);
+          ]]>
+      </add>
+    </operation>
+  </file>
+  <file path='emp4_empempenho004.php'>
+    <operation>
+      <search><![CDATA[/**[Extensao Ordenador Despesa] inclusao_ordenador*/]]></search>
+      <add position="after">
+        <![CDATA[
+           if (!$sqlerro) {
+              try {
+
+                AssinaturaOrdenadorDespesa::gravarAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_EMISSAO_EMPENHO,
+                                                            $e60_numemp,
+                                                            db_getsession("DB_coddepto")
+                                                           );
+              } catch (Exception $eErro) {
+                $sqlerro = true;
+                $erro_msg = $eErro->getMessage();
+              }
+            }
+          ]]>
+      </add>
+    </operation>
+  </file>
+  <file path='emp1_empempenho005.php'>
+    <operation>
+      <search><![CDATA[/**[Extensao Ordenador Despesa] inclusao_ordenador*/]]></search>
+      <add position="after">
+        <![CDATA[
+           if (!$sqlerro) {
+              try {
+              	
+                db_putsession("EMPENHO_ORDENADOR_DESPESA",$ordenador_da_despesa);
+                AssinaturaOrdenadorDespesa::gravarAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_EMISSAO_EMPENHO,
+                                                            $e60_numemp,
+                                                            db_getsession("DB_coddepto")
+                                                           );
+              } catch (Exception $eErro) {
+                $sqlerro = true;
+                $erro_msg = $eErro->getMessage();
+              }
+            }
+          ]]>
+      </add>
+    </operation>
+  </file>
+  <file path='emp4_liquidacao004.php'>
+    <operation>
+      <search><![CDATA[/**[Extensao OrdenadorDespesa] inclusao_ordenador_1*/]]></search>
+      <add position="after">
+        <![CDATA[
+          if ($oDadosRetorno->erro == 1) {
+
+            $aOrdensGeradas = explode(",", $oDadosRetorno->sOrdensGeradas);
+            foreach ($aOrdensGeradas as $iIndOrdensGeradas => $iOrdem) {
+              AssinaturaOrdenadorDespesa::gravarAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_ORDEM_PAGAMENTO, $iOrdem, db_getsession("DB_coddepto"));
+            }
+          }
+          ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[ /**[Extensao OrdenadorDespesa] inclusao_ordenador_2*/]]></search>
+      <add position="after">
+        <![CDATA[
+          AssinaturaOrdenadorDespesa::gravarAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_ORDEM_PAGAMENTO,
+                                                      $oDadosRetorno->e50_codord,
+                                                      db_getsession("DB_coddepto")
+                                                    );
+          ]]>
+      </add>
+    </operation>
+  </file>
+  <file path='classes/empenho.php'>
+    <operation>
+      <search><![CDATA[/**[Extensao OrdenadorDespesa] inclusao_ordenador*/]]></search>
+      <add position="after">
+        <![CDATA[
+         if (!$this->lSqlErro) {
+
+              try {
+
+                AssinaturaOrdenadorDespesa::gravarAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_ANULACAO_EMPENHO,
+                  $iCodAnu,
+                  db_getsession("DB_coddepto")
+                );
+              } catch (Exception $eErro) {
+
+                $this->lSqlErro = true;
+                $this->sErroMsg = $eErro->getMessage();
+              }
+
+            }
+          ]]>
+      </add>
+    </operation>
+  </file>
+  <file path='classes/ordemPagamento.model.php'>
+    <operation>
+      <search><![CDATA[/**[Extensao OrdenadorDespesa] inclusao_ordenador*/]]></search>
+      <add position="after">
+        <![CDATA[
+         AssinaturaOrdenadorDespesa::gravarAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_ANULACAO_EMPENHO,
+          $clempanulado->e94_codanu,
+          db_getsession("DB_coddepto")
+        );
+          ]]>
+      </add>
+    </operation>
+  </file>
+  
+  <file path='forms/db_frmempanularempenho.php'>
+    <operation>
+      <search><search><![CDATA[<!--[Extensao OrdenadorDespesa] inclusao_ordenador-->]]></search></search>
+        <add position="after">
+          <![CDATA[
+                  <tr>
+                    <td><b>Ordenador da Despesa:</b></td>
+                    <td nowrap colspan='3'>
+                      <div id="divContainerOrdenadorDespesa"></div>
+                      <script>
+                        require_once('scripts/classes/empenho/OrdenadorDespesa.js');
+                        new OrdenadorDespesa().show($('divContainerOrdenadorDespesa'));
+                      </script>
+                    </td>
+                  </tr>
+          ]]>
+        </add>
+    </operation>
+  </file>
+
+  <file path='forms/db_frmempempenhonota.php'>
+    <operation>
+      <search><![CDATA[<!--[Extensao OrdenadorDespesa] inclusao_ordenador-->]]></search>
+      <add position="after">
+        <![CDATA[
+        <tr>
+          <td>
+            <b>Ordenador da Despesa:</b>
+          </td>
+          <td>
+            <div id="divContainerOrdenadorDespesa"></div>
+            <script>
+              require_once('scripts/classes/empenho/OrdenadorDespesa.js');
+              new OrdenadorDespesa().show($('divContainerOrdenadorDespesa'));
+            </script>
+          </td>
+        </tr>
+          ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='forms/db_frmempempenhoaltera.php'>
+    <operation>
+      <search><![CDATA[<!--[Extensao OrdenadorDespesa] inclusao_ordenador-->]]></search>
+      <add position="after">
+        <![CDATA[
+        <tr>
+        <td>
+          <b>Ordenador da Despesa:</b>
+        </td>
+        <td>
+          <div id="divContainerOrdenadorDespesa"></div>
+          <script>
+            require_once('scripts/classes/empenho/OrdenadorDespesa.js');
+            var oOrdenador = new OrdenadorDespesa();
+            oOrdenador.setTipo(ORDENADOR_ASSINATURA_EMISSAO_EMPENHO);
+            oOrdenador.setDocumento($F('e60_numemp'));
+            oOrdenador.show($('divContainerOrdenadorDespesa'));
+          </script>
+        </td>
+      </tr>
+          ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='forms/db_frmnotaliqdesconto.php'>
+    <operation>
+      <search><![CDATA[<!-- [Extensao] Ordenador Despesa -->]]></search>
+      <add position="after">
+        <![CDATA[
+        <tr>
+          <td nowrap="nowrap">
+            <b>Ordenador da Despesa:</b>
+          </td>
+          <td>
+            <div id="divContainerOrdenadorDespesa"></div>
+            <script>
+              require_once('scripts/classes/empenho/OrdenadorDespesa.js');
+              new OrdenadorDespesa().show($('divContainerOrdenadorDespesa'));
+            </script>
+          </td>
+        </tr>
+          ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='forms/db_frmliquida.php'>
+    <operation>
+      <search><![CDATA[<!--[Extensao OrdenadorDespesa] inclusao_ordenador-->]]></search>
+      <add position="after">
+        <![CDATA[
+        <tr>
+          <td>
+            <b>Ordenador da Despesa:</b>
+          </td>
+          <td>
+            <div id="divContainerOrdenadorDespesa"></div>
+            <script>
+              require_once('scripts/classes/empenho/OrdenadorDespesa.js');
+              new OrdenadorDespesa().show($('divContainerOrdenadorDespesa'));
+            </script>
+          </td>
+        </tr>
+          ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='forms/db_frmliquidasemordem.php'>
+    <operation>
+      <search><![CDATA[<!--[Extensao OrdenadorDespesa] inclusao_ordenador-->]]></search>
+      <add position="after">
+        <![CDATA[
+        <tr>
+          <td>
+            <b>Ordenador da Despesa:</b>
+          </td>
+          <td>
+            <div id="divContainerOrdenadorDespesa"></div>
+            <script>
+              require_once('scripts/classes/empenho/OrdenadorDespesa.js');
+              new OrdenadorDespesa().show($('divContainerOrdenadorDespesa'));
+            </script>
+          </td>
+        </tr>
+          ]]>
+      </add>
+    </operation>
+  </file>
+</modification>

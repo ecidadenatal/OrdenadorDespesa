@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <plugin name="OrdenadorDespesa" label="Assinatura Ordenador da Despesa" plugin-version="1.1" ecidade-version="2.3.36" id-modulo="398">
+    <id id="OrdenadorDespesa">OrdenadorDespesa</id>
+    <files>
+
+      <!-- lookup -->
+      <file name="func_assinaturaordenadordespesa.php"    path="/func_assinaturaordenadordespesa.php" />
+
+      <!-- classe -->
+      <file name="db_documentoassinaturaordenadordespesa_classe.php"    path="/classes/db_documentoassinaturaordenadordespesa_classe.php" />
+      <file name="db_assinaturaordenadordespesa_classe.php"    path="/classes/db_assinaturaordenadordespesa_classe.php" />
+
+      <!-- model -->
+      <file name="AssinaturaOrdenadorDespesa.model.php"    path="/model/empenho/AssinaturaOrdenadorDespesa.model.php" />
+
+      <!-- outro -->
+      <file name="OrdenadorDespesa.xml"    path="/modification/xml/OrdenadorDespesa.xml" />
+      <file name="db_frmassinaturaordenadordespesa.php"    path="/forms/db_frmassinaturaordenadordespesa.php" />
+      <file name="emp1_assinaturaordenadordespesa003.php"    path="/emp1_assinaturaordenadordespesa003.php" />
+      <file name="emp1_assinaturaordenadordespesa002.php"    path="/emp1_assinaturaordenadordespesa002.php" />
+      <file name="emp1_assinaturaordenadordespesa001.php"    path="/emp1_assinaturaordenadordespesa001.php" />
+      <file name="emp4_ordenadordespesa.RPC.php"    path="/emp4_ordenadordespesa.RPC.php" />
+      <file name="OrdenadorDespesa.js"    path="/scripts/classes/empenho/OrdenadorDespesa.js" />
+
+    </files>
+    <estrutura install="/instalacao.sql" uninstall="/desinstalacao.sql">
+      <estrutura file="/versao_1_1.sql" version="1.1" />
+    </estrutura>
+
+
+    <menus>
+      <menu type="1">
+        <item name="Ordenador da Despesa" file="" liberado-cliente="true">
+          <item name="Inclusão"  file="emp1_assinaturaordenadordespesa001.php" liberado-cliente="true"/>
+          <item name="Alteração" file="emp1_assinaturaordenadordespesa002.php" liberado-cliente="true"/>
+          <item name="Exclusão"  file="emp1_assinaturaordenadordespesa003.php" liberado-cliente="true"/>
+        </item>
+      </menu>
+    </menus>
+  </plugin>
+</manifest>
