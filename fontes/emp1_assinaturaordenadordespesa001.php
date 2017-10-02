@@ -1,8 +1,8 @@
 <?php
-require_once "libs/db_stdlib.php";
-require_once "libs/db_conecta_plugin.php";
-require_once "libs/db_sessoes.php";
-require_once "dbforms/db_funcoes.php";
+require_once modification("libs/db_stdlib.php");
+require_once modification("libs/db_conecta_plugin.php");
+require_once modification("libs/db_sessoes.php");
+require_once modification("dbforms/db_funcoes.php");
 
 
 db_postmemory($_POST);
@@ -56,5 +56,5 @@ if (isset($incluir)) {
 
 $sPosScripts .=  'js_tabulacaoforms("form1", "departamento", true, 1, "departamento", true);';
 
-include("forms/db_frmassinaturaordenadordespesa.php");
+include(modification("forms/db_frmassinaturaordenadordespesa.php"));
 ?>

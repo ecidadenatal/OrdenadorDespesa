@@ -147,7 +147,7 @@ if ($db_opcao == 1) {
 
     if (lExibeJanela) {
 
-      js_OpenJanelaIframe( 'top.corpo',
+      js_OpenJanelaIframe( '(window.CurrentWindow || parent.CurrentWindow).corpo',
         'db_iframe_db_depart',
         'func_db_depart.php?funcao_js=parent.js_mostradb_depart1|coddepto|descrdepto',
         'Pesquisa', true);
@@ -156,7 +156,7 @@ if ($db_opcao == 1) {
       if (document.form1.departamento.value != '') {
 
         $('db_opcao').disabled = true;
-        js_OpenJanelaIframe( 'top.corpo',
+        js_OpenJanelaIframe( '(window.CurrentWindow || parent.CurrentWindow).corpo',
           'db_iframe_db_depart',
           'func_db_depart.php?pesquisa_chave=' + document.form1.departamento.value + '&funcao_js=parent.js_mostradb_depart',
           'Pesquisa', false);
@@ -221,7 +221,7 @@ if ($db_opcao == 1) {
 
   function js_pesquisa() {
 
-    js_OpenJanelaIframe( 'top.corpo',
+    js_OpenJanelaIframe( '(window.CurrentWindow || parent.CurrentWindow).corpo',
       'db_iframe_assinaturaordenadordespesa',
       'func_assinaturaordenadordespesa.php?funcao_js=parent.js_preenchepesquisa|0|1|2|3|4|5|6|7',
       'Pesquisa', true);
