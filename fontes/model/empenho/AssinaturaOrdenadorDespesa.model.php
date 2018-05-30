@@ -33,6 +33,10 @@ class AssinaturaOrdenadorDespesa {
   CONST ASSINATURA_ORDEM_PAGAMENTO = 2;
 
   CONST ASSINATURA_ANULACAO_EMPENHO = 3;
+  
+  CONST ASSINATURA_ANULACAO_ORDEM_PAGAMENTO = 4;
+  
+  CONST ASSINATURA_REMESSA_BANCARIA = 5;
 
   /**
    * Retorna os Dados do Ordenador da despesa

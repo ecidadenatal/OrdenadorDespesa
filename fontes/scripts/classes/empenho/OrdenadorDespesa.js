@@ -3,6 +3,8 @@ require_once('scripts/AjaxRequest.js');
 const ORDENADOR_ASSINATURA_EMISSAO_EMPENHO  = 1;
 const ORDENADOR_ASSINATURA_ORDEM_PAGAMENTO  = 2;
 const ORDENADOR_ASSINATURA_ANULACAO_EMPENHO = 3;
+const ORDENADOR_ASSINATURA_ANULACAO_ORDEM_PAGAMENTO = 4;
+const ORDENADOR_ASSINATURA_REMESSA_BANCARIA = 5;
 
 OrdenadorDespesa = function() {
 
@@ -49,7 +51,7 @@ OrdenadorDespesa = function() {
   };
 
   /**
-   * Salva o ordenador na sessão
+   * Salva o ordenador na sessï¿½o
    */
   this.salvarOrdenador = function() {
 

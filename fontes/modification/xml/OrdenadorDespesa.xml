@@ -299,4 +299,136 @@
       </add>
     </operation>
   </file>
+  
+  <file path='forms/db_frmmanutencaoagenda.php'>
+    <operation>
+      <search regex="true" flag="U"><![CDATA[(<tr>\n*.*<td>\n*.*Ordens Autorizadas(.*\n*)*<\/tr>)]]></search>
+      <add>
+        <![CDATA[<input type="hidden" name="ordensautorizadas" id="ordensautorizadas">]]>
+      </add>
+    </operation>  
+    <operation>
+      <search regex="true"><![CDATA[(<input.*checkbox.*efetuarpagamento.*onclick.*js_showAutenticar.*>)]]></search>
+      <add>
+        <![CDATA[<input type='checkbox' id='emitirordemauxiliar'>
+                 <label for='emitirordemauxiliar'><b>Emitir Ordem Auxiliar</b></label><br>
+                 $1]]>
+      </add>
+    </operation>  
+    <operation>
+      <search regex="true" flag="U"><![CDATA[(<fieldset>.*\n*.*<legend><b>Mostrar(.*\n*)*<\/fieldset>)]]></search>
+      <add>
+        <![CDATA[ ]]>
+      </add>
+    </operation>      
+    <operation>
+      <search regex="true"><![CDATA[(<fieldset.*\n*.*\n*.*Op Auxiliar)]]></search>
+      <add>
+        <![CDATA[<fieldset class='filtros'>
+                    <legend>Ordenador da Despesa</legend>
+                    <table>
+                      <tr>
+                        <td>
+                          <b>Ordenador:</b>
+                        </td>
+                        <td>
+                          <div id="divContainerOrdenadorDespesa"></div>
+                          <script>
+                            require_once('scripts/classes/empenho/OrdenadorDespesa.js');
+                            new OrdenadorDespesa().show($('divContainerOrdenadorDespesa'));
+                          </script>
+                        </td>
+                      </tr>                    
+                    </table>
+                  </fieldset>
+                 
+                 <fieldset>
+                   <legend><b>Mostrar</b></legend>
+                     <input type="checkbox" id='configuradas' onclick='js_showFiltro("configurada",this.checked)' />
+                     <label for="configuradas" style='padding:1px;border: 1px solid black; background-color:#d1f07c; vertical-align: middle'>
+                       <b>Atualizados</b>
+                     </label><br>
+                     <input type="checkbox" id='normais' checked onclick='js_showFiltro("normal",this.checked)' />
+                     <label for="normais" style='padding:1px;border: 1px solid black;background-color:white; vertical-align: middle'>
+                       <b>Não Atualizados</b>
+                     </label><br>
+                     <input type="checkbox" id='comMovs'  onclick='js_showFiltro("comMov",this.checked)' />
+                     <label for="comMovs" style='padding:1px;border: 1px solid black;background-color:rgb(222, 184, 135); vertical-align: middle'>
+                       <b>Com cheque/em Arquivo</b>
+                     </label>
+                 </fieldset>
+             
+                 <fieldset class='filtros' style="display: none;">
+                    <legend>
+                      <b>Op Auxiliar</b>]]>
+      </add>
+    </operation>
+    <operation>
+      <search regex="true" flag="U"><![CDATA[(<input.*id='emitirordemauxiliar'>).*\n*.*(<label.*emitirordemauxiliar.*<\/label><br>)]]></search>
+       <add>
+         <![CDATA[<input type='hidden' id='emitirordemauxiliar'>]]>
+       </add>
+    </operation>    
+    <operation>
+      <search regex="true" flag="U"><![CDATA[<td.*Ordenar:.*\/td>(\n*.*)*<\/td>]]></search>
+      <add>
+        <![CDATA[<input type="hidden" name="orderby" id="orderby" value="e82_codord">]]>
+      </add>
+    </operation>    
+    <operation>
+      <search regex="true"><![CDATA[(<input.*id=('|")e42_sequencial('|"))]]></search>
+      <add>
+        <![CDATA[<input type='hidden' size="10" id='e42_sequencial']]>
+      </add>
+    </operation>    
+    <operation>
+      <search regex="true"><![CDATA[(<\?.*OP auxiliar.*\?>)]]></search>
+      <add>
+        <![CDATA[<!-- $1 -->]]>
+      </add>
+    </operation>    
+    <operation>
+      <search regex="true"><![CDATA[(Processo Administrativo:)]]></search>
+      <add>
+        <![CDATA[<!-- $1 -->]]>
+      </add>
+    </operation>
+    <operation>
+      <search regex="true"><![CDATA[(db_input.*e03_numeroprocesso.*)text(.*\?>)]]></search>
+      <add>
+        <![CDATA[$1hidden$2]]>
+      </add>
+    </operation>            
+    <operation>
+      <search regex="true"><![CDATA[<tr>(.*\n*.*<td.*\n*.*Forma de Pagamento padrão.*<\/td>)]]></search>
+      <add>
+        <![CDATA[<tr style="display: none;">$1]]>
+      </add>
+    </operation>
+    <operation>
+      <search regex="true"><![CDATA[<tr>(.*\n*.*<td>.*\n*.*<label.*Data de Vencimento)]]></search>
+      <add>
+        <![CDATA[<tr style="display:none;"> $1]]>
+      </add>
+    </operation>
+    <operation>
+      <search regex="true"><![CDATA[(<input\s*name="emitecheque".*type=")button]]></search>
+      <add>
+        <![CDATA[$1hidden]]>
+      </add>
+    </operation>    
+  </file>
+  
+  <file path='emp4_manutencaoPagamentoRPC.php'>
+    <operation>
+      <search regex="true"><![CDATA[(\$iCodMov\s*=\s*\$oMovimento->iCodMov;)]]></search>
+      <add>
+        <![CDATA[$1
+        
+        AssinaturaOrdenadorDespesa::gravarAssinatura(AssinaturaOrdenadorDespesa::ASSINATURA_REMESSA_BANCARIA,$iCodMov,db_getsession("DB_coddepto"));
+        ]]>
+      </add>
+    </operation>
+  </file>  
+  
 </modification>
